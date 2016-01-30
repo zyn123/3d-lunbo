@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="./js/jquery.js"></script>
+    <script>
+        $(function(){
+
+            var bigScene=$("<div>");
+            bigScene.css({
+                width:800,height:400,position:"fixed",left:0,top:0,bottom:0,right:0,opacity: 0.9,
+                margin:"auto"
+            }).appendTo("body");
+
+            var num=40;
+            var arr=[];
+            var shu=400/num;
+
+            for(i=0;i<num;i++){
+//                if(i==0){
+//                    var a=300;
+//                }else if(i==1){
+//                    var a=200;
+//                }else if(i==3){
+//                    var a=100px;
+//                }else if(i==4){
+//                    var a=0;
+//                }
+                var scene=$("<div>");
+                scene.css({
+                    width:"100%",
+                    height:100/num+"%",
+                    perspective:"5000px"
+//                    perspectiveOrigin:"center "+a+""
+                }).appendTo(bigScene);
+
+                var box=$("<div>");
+                 arr.push(box);
+                box.css({
+//                    opacity: 0.9,
+                    width:"100%",height:"100%",
+                    position:"relative",
+                    transformStyle:"preserve-3d",transition:"transform 2s ease "+i*0.05+"s",
+                    transformOrigin:"center center 200px",opacity: 0.9
+                }).appendTo(scene);
+                for(var j=0;j<6;j++){
+                    var panel=$("<div>");
+                    panel.css({
+                        position:"absolute",left:0,top:0,opacity: 0.9
+                    }).appendTo(box);
+
+                    if(j==0){
+                        panel.css({
+                            width:"100%",height:"400px",
+                            transform:"rotateX(90deg)",transformOrigin:"top",
+                            background:"url(img/22.jpg) no-repeat 0 "+(-i*shu)+"px"
+                        })
+                    }else if(j==1){
+                        panel.css({
+                            width:"400px",height:"100%",
+                            transform:"rotateY(-90deg)",transformOrigin:"left",
+                            background:"url(img/11.jpg) no-repeat 0 "+(-i*shu)+"px"
+                        })
+                    }else if(j==2){
+                        panel.css({
+                            width:"100%",height:"100%",
+                            transform:"rotateY(180deg)",
+                            background:"url(img/33.jpg) no-repeat 0 "+(-i*shu)+"px"
+                        })
+                    }else if(j==3){
+                        panel.css({
+                            width:"400px",height:"100%",
+                            left:400,
+                            transform:"rotateY(90deg)",transformOrigin:"right",
+                            background:"url(img/33.jpg) no-repeat 0 "+(-i*shu)+"px"
+                        })
+                    }else if(j==4){
+                        panel.css({
+                            width:"400px",height:"100%",
+                            bottom:0,
+                            transform:"rotateX(-90deg)",transformOrigin:"bottom",
+                            background:"url(img/22.jpg) no-repeat 0 "+(-i*shu)+"px"
+                        })
+                    }else if(j==5){
+                        panel.css({
+                            width:"100%",height:"100%",
+                            transform:"translateZ(400px)",
+                            background:"url(img/11.jpg) no-repeat 0 "+(-i*shu)+"px"
+                        })
+                    }
+                }
+            }
+            var t,a=0;
+          window.onblur=function(){
+              clearInterval(t)
+          };
+            window.onfocus=function(){
+                t= setInterval(move,4000);
+            };
+           t= setInterval(move,4000);
+            function move(){
+                a+=90;
+                for(var i=0;i<arr.length;i++){
+                    arr[i].css({
+                        transform:"rotate3d(0,1,0,"+a+"deg)"
+                    })
+
+                }
+            }
+
+        })
+    </script>
+</head>
+<body>
+
+</body>
+</html>
